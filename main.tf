@@ -27,9 +27,13 @@ resource "google_cloud_run_service" "example" {
       }
     }
   }
-# Use lifecycle to ignore changes in the status field
+
+  # Use lifecycle to ignore changes in the status field
   lifecycle {
-    ignore_changes = [template[0].spec.containers[0].image]
+    ignore_changes = [
+      template[0].spec[0].containers[0].image,
+      # Add other attributes you want to ignore changes for
+    ]
   }
 }
 
