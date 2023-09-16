@@ -43,7 +43,7 @@ resource "google_compute_instance" "example" {
 
   boot_disk {
   initialize_params {
-    image = "projects/debian-cloud/global/images/debian-11-bullseye-v20230119"  # Replace with a valid image URL
+    image = "debian-cloud/debian-11"  # Replace with a valid image URL
   }
   }
 
