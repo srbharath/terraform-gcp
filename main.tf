@@ -36,7 +36,24 @@ resource "google_cloud_run_service" "example" {
     ]
   }
 }
+resource "google_compute_instance" "example" {
+  name         = "example-instance"
+  machine_type = "n1-standard-1"  # Adjust the machine type as needed
+  zone         = "us-central1-a"  # Adjust the zone as needed
 
+  boot_disk {
+  initialize_params {
+    image = "debian-cloud/debian-11"  # Replace with a valid image 
+  }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {
+      // Ephemeral IP
+    }
+  }
+}
 # Output the URL of the Cloud Run service
 output "service_url" {
   value = google_cloud_run_service.example.status[0].url
