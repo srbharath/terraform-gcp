@@ -27,25 +27,15 @@ resource "google_cloud_run_service" "example" {
       }
     }
   }
-}
-resource "google_compute_instance" "example" {
-  name         = "example-instance"
-  machine_type = "n1-standard-1"  # Adjust the machine type as needed
-  zone         = "us-central1-a"  # Adjust the zone as needed
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-9"  # Adjust the image as needed
-    }
-  }
-
-  network_interface {
-    network = "default"
-    access_config {
-      // Ephemeral IP
-    }
+# Use lifecycle to ignore changes in the status field
+  lifecycle {
+    ignore_changes = [
+      template[0].spec.containers[0].image,
+      # Add other attributes you want to ignore changes for
+    ]
   }
 }
+
 # Output the URL of the Cloud Run service
 output "service_url" {
   value = google_cloud_run_service.example.status[0].url
