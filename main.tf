@@ -9,6 +9,7 @@ resource "google_sql_database_instance" "example" {
   }
 }
 
+
 # Create a database in the Cloud SQL instance
 resource "google_sql_database" "example" {
   name     = "example-database"
